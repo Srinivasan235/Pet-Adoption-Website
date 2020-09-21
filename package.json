@@ -1,0 +1,19 @@
+{
+  "name": "pet-adoption-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Srinivasan235/Pet-Adoption-Website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Srinivasan235/Pet-Adoption-Website/issues"
+  },
+  "homepage": "https://github.com/Srinivasan235/Pet-Adoption-Website#readme"
+}
