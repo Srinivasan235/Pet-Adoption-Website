@@ -5,6 +5,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+
 // set up routes
 app.use('/', websiteRoutes);
 
