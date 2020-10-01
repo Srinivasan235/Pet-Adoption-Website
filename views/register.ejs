@@ -5,16 +5,69 @@
 <head>
     <meta charset="utf-8">
     <title>Register</title>
-    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- css file -->
+    <link rel="stylesheet" href="css/register.css">
+
+    <!-- bootstrap cdn -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
 </head>
 
 <body>
-    <h1>Register page</h1>
+    <div class="container-fluid cont-login">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-5 left-side d-none d-md-block">
+                <div class="container">
+                    <div class="row login-left">
+                        <p class="brand-name">PetAdoption</p>
+                        <p class="brand-desc">Adopt a pet before they have to go to the shelter.</p>
+                        <img class="img-fluid" src="images/register.svg">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-7 right-side">
+
+                <div class="login-form">
+                    <h2 class="sign">Sign up to PetAdoption</h2>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block"><img
+                            src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign in Using
+                        Google</a></button>
+                    <br>
+                    <br>
+                    <hr class="hr-text" data-content="OR">
+
+                    <form>
+                        <div class="form-group">
+                            <label class="name">Name</label>
+                            <input type="text" class="form-control">
+                            <label class="username">Username</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn button">Create account</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-    integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-    crossorigin="anonymous"></script>
 
 </html>
