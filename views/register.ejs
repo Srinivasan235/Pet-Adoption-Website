@@ -12,8 +12,10 @@
     <!-- bootstrap cdn -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="https://img.icons8.com/fluent/48/000000/pets.png" type="image" />
 
 
 </head>
@@ -34,35 +36,46 @@
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-7 right-side">
-
                 <div class="login-form">
+                    <br>
                     <h2 class="sign">Sign up to PetAdoption</h2>
-                    <br>
-                    <button type="submit" class="btn btn-primary btn-block"><img
-                            src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign in Using
-                        Google</a></button>
-                    <br>
-                    <br>
-                    <hr class="hr-text" data-content="OR">
-
-                    <form>
+                    <form action="register" method="POST" enctype="multipart/form-data">
+                        <% if(typeof errors != 'undefined'){ %> <% errors.forEach(function(error) { %>
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <%= error.msg %>
+                        </div>
+                        <% }); %>
+                        <% } %>
                         <div class="form-group">
                             <label class="name">Name</label>
-                            <input type="text" class="form-control">
-                            <label class="username">Username</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="name"
+                                value="<%= typeof name != 'undefined' ? name : '' %>">
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" name='email'
+                                value="<%= typeof email != 'undefined' ? email : '' %>">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control">
+                            <input type="password" class="form-control" name="password"
+                                value="<%= typeof password != 'undefined' ? password : '' %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Re-Enter Password</label>
+                            <input type="password" class="form-control" name="password2"
+                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Profile image</label>
+                            <input type="file" class="form-control" name="image" id="image"
+                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>">
                         </div>
                         <button type="submit" class="btn button">Create account</button>
-
                     </form>
+                    <p class="mt-4">Have An Account? <a class="feat" href="login">Login</a>
                 </div>
 
             </div>
