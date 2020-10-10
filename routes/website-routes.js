@@ -15,6 +15,10 @@ router.get('/login', (req, res) => {
 	res.render('login');
 });
 
+router.get('/showPets',(req,res)=> {
+	res.render('showPets');
+});
+
 router.post('/register', upload.single('image'), async (req, res) => {
 	const { name, email, password, password2 } = req.body;
 

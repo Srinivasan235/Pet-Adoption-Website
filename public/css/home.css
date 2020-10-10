@@ -12,6 +12,16 @@ body {
 .adoption {
 	color: #6b515a;
 }
+#search{
+	background-color: #132743;
+}
+#load{
+	margin-left: 550px;
+}
+#bar{
+	width: 600px;
+	margin-left: 350px;
+}
 
 .colored-section {
 	background-color: #f1cdd7;
