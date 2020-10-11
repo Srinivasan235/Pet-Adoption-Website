@@ -1,0 +1,71 @@
+<%-include("partials/header")%>
+
+<section id="title" class="colored-section  p-4 justify-content-center">
+    <div class="container-fluid">
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-gradient ">
+            <a class="navbar-brand" href="/">Pet<span class="adoption">Adoption<span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/logout">logout</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/add-pets">Rehome</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!-- Title -->
+        </form>
+
+        <form class="form-inline mr-auto">
+            <input class="form-control mr-sm-2" id="bar" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success btn-rounded btn-md my-0" id="searchs" type="submit">Search</button>
+        </form>
+
+    </div>
+
+
+
+</section>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 220">
+    <path fill="#f1cdd7" fill-opacity="1"
+        d="M0,192L40,197.3C80,203,160,213,240,202.7C320,192,400,160,480,165.3C560,171,640,213,720,208C800,203,880,149,960,122.7C1040,96,1120,96,1200,106.7C1280,117,1360,139,1400,149.3L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+    </path>
+</svg>
+
+
+<section id="pricing" class="white-section">
+    <h2 class="heading1">MEET OUR RECENT ARRIVALS</h2>
+    <p></p>
+    <div class="row">
+
+        <% pets.forEach(function(pet){ %>
+        <div class="pricing-component col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><%=pet.petname %></h3>
+                </div>
+                <div class="card-body">
+                    <img class="dog-image" src="<%=pet.pet_image %>" alt="dog-profile">
+
+                    <p>breed: <%= pet.breed %></p>
+                    <p>Age: <%= pet.petage %></p>
+
+                    <button type="button" class="btn btn-dark btn-lg button2">Adopt</button>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+    <button type="button" class="btn btn-outline-dark" id="load">Load more</button>

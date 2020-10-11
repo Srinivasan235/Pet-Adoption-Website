@@ -39,7 +39,8 @@ mongoose
 		useNewUrlParser    : true,
 		useUnifiedTopology : true
 	})
-	.then(() => console.log('MongoDB Connected'));
+	.then(() => console.log('MongoDB Connected'))
+	.catch((e) => console.log(e));
 
 // set up routes
 app.use('/', websiteRoutes);

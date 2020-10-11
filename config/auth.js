@@ -12,21 +12,23 @@ module.exports = function(passport) {
 			// Match user
 			User.findOne({
 				email : email
-			}).then((user) => {
-				if (!user) {
-					return done(null, false);
-				}
-
-				// Match password
-				bcrypt.compare(password, user.password, (err, isMatch) => {
-					if (err) throw err;
-					if (isMatch) {
-						return done(null, user);
-					} else {
+			})
+				.then((user) => {
+					if (!user) {
 						return done(null, false);
 					}
-				});
-			});
+
+					// Match password
+					bcrypt.compare(password, user.password, (err, isMatch) => {
+						if (err) throw err;
+						if (isMatch) {
+							return done(null, user);
+						} else {
+							return done(null, false);
+						}
+					});
+				})
+				.catch((e) => console.log(e));
 		})
 	);
 

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/users');
+const Pets = require('../models/pets');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const cloudinary = require('cloudinary').v2;
@@ -18,10 +19,11 @@ router.get('/login', (req, res) => {
 router.post('/register', upload.single('image'), async (req, res) => {
 	const { name, email, password, password2 } = req.body;
 
-	const loc = await cloudinary.uploader.upload(req.file.path, function(error, result) {
-		console.log('no error');
-	});
-	console.log(loc.url);
+	const loc = await cloudinary.uploader
+		.upload(req.file.path, function(error, result) {
+			console.log('no error');
+		})
+		.catch((e) => console.log(e));
 
 	let errors = [];
 	if (!name || !email || !password || !password2) {
@@ -37,40 +39,42 @@ router.post('/register', upload.single('image'), async (req, res) => {
 	if (errors.length > 0) {
 		res.render('register', { errors, name, email, password, password2 });
 	} else {
-		User.findOne({ email: email }).then((user) => {
-			if (user) {
-				errors.push({ msg: 'Email already exists' });
-				res.render('register', { errors, name, email, password, password2 });
-			} else {
-				const newUser = new User({
-					name,
-					email,
-					password
-					// profile_img : loc.url
-				});
-
-				bcrypt.genSalt(10, (err, salt) => {
-					bcrypt.hash(newUser.password, salt, (err, hash) => {
-						if (err) {
-							console.log(err);
-						} else {
-							newUser.password = hash;
-							newUser.profile_image = loc.url;
-							console.log(newUser);
-							newUser.save();
-							res.redirect('/login');
-						}
+		User.findOne({ email: email })
+			.then((user) => {
+				if (user) {
+					errors.push({ msg: 'Email already exists' });
+					res.render('register', { errors, name, email, password, password2 });
+				} else {
+					const newUser = new User({
+						name,
+						email,
+						password
+						// profile_img : loc.url
 					});
-				});
-			}
-		});
+
+					bcrypt.genSalt(10, (err, salt) => {
+						bcrypt.hash(newUser.password, salt, (err, hash) => {
+							if (err) {
+								console.log(err);
+							} else {
+								newUser.password = hash;
+								newUser.profile_image = loc.url;
+								console.log(newUser);
+								newUser.save();
+								res.redirect('/login');
+							}
+						});
+					});
+				}
+			})
+			.catch((e) => console.log(e));
 	}
 });
 
 // Login
 router.post('/login', (req, res, next) => {
 	passport.authenticate('local', {
-		successRedirect : '/users',
+		successRedirect : '/showPets',
 		failureRedirect : '/login'
 	})(req, res, next);
 });
@@ -91,5 +95,49 @@ router.get('/users', (req, res) => {
 		user : req.user
 	});
 });
+
+router.get('/showPets', (req, res) => {
+	Pets.find({}, (err, pets) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(req.user);
+			res.render('showPets', {
+				pets : pets,
+				user : req.user
+			});
+		}
+	});
+});
+
+router.get('/add-pets', (req, res) => {
+	res.render('add_pets');
+});
+router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
+	console.log(req.body);
+	const { petname, petage, breed, color, phone } = req.body;
+	const img_loc = await await cloudinary.uploader
+		.upload(req.file.path, function(error, result) {
+			console.log('no error');
+		})
+		.catch((e) => console.log(e));
+	var new_pet = new Pets({
+		petname   : petname,
+		petage    : petage,
+		color     : color,
+		breed     : breed,
+		phone     : phone,
+		pet_image : img_loc.url
+	});
+
+	new_pet.save(function(err, result) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect('/showPets');
+		}
+	});
+});
+
 // export the routes
 module.exports = router;
