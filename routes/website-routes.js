@@ -5,9 +5,11 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const cloudinary = require('cloudinary').v2;
 const upload = require('../config/multer');
+var c=1;
 
 require('../config/cloudinary');
 router.get('', (req, res) => {
+	c=1;
 	res.render('home');
 });
 
@@ -90,6 +92,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/users', (req, res) => {
+	c=1;
 	console.log(req.user);
 	res.render('users', {
 		user : req.user
@@ -97,17 +100,48 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/showPets', (req, res) => {
-	Pets.find({}, (err, pets) => {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log(req.user);
-			res.render('showPets', {
-				pets : pets,
-				user : req.user
-			});
-		}
-	});
+	
+	if(req.query.search){
+		c=0
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		Pets.find({petname:regex}, (err, pets) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(req.user);
+				res.render('showPets', {
+					pets : pets,
+					user : req.user,
+					value : c
+				});
+			}
+		});
+
+	}
+	else{
+		Pets.find({}, (err, pets) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(req.user);
+				res.render('showPets', {
+					pets : pets,
+					user : req.user,
+					value : c
+				});
+			}
+		});
+
+	}
+	
+});
+
+router.post('/showPets',(req,res)=>{
+	const a=req.body.load;
+	console.log(a);
+    c=0;
+	res.redirect('/showPets');
+
 });
 
 router.get('/add-pets', (req, res) => {
@@ -139,5 +173,9 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 	});
 });
 
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 // export the routes
 module.exports = router;
