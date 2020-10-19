@@ -1,28 +1,31 @@
 const mongoose = require('mongoose');
 
 const PetSchema = new mongoose.Schema({
-	petname   : {
+	petname     : {
 		type     : String,
 		required : true
 	},
-	petage    : {
+	petage      : {
 		type     : Number,
 		required : true
 	},
-	breed     : {
+	breed       : {
 		type     : String,
 		required : true
 	},
 
-	color     : {
+	color       : {
 		type     : String,
 		required : true
 	},
-	phone     : {
+	phone       : {
 		type     : String,
 		required : true
 	},
-	pet_image : {
+	pet_image   : {
+		type : String
+	},
+	owner_email : {
 		type : String
 	}
 });

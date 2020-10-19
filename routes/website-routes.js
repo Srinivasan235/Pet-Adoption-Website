@@ -5,11 +5,21 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const cloudinary = require('cloudinary').v2;
 const upload = require('../config/multer');
-var c=1;
+var c = 1;
+const nodemailer = require('nodemailer');
+
+// Step 1
+let transporter = nodemailer.createTransport({
+	service : 'gmail',
+	auth    : {
+		user : 'wpproject264@gmail.com',
+		pass : 'Sachin@100'
+	}
+});
 
 require('../config/cloudinary');
 router.get('', (req, res) => {
-	c=1;
+	c = 1;
 	res.render('home');
 });
 
@@ -61,7 +71,6 @@ router.post('/register', upload.single('image'), async (req, res) => {
 							} else {
 								newUser.password = hash;
 								newUser.profile_image = loc.url;
-								console.log(newUser);
 								newUser.save();
 								res.redirect('/login');
 							}
@@ -92,7 +101,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/users', (req, res) => {
-	c=1;
+	c = 1;
 	console.log(req.user);
 	res.render('users', {
 		user : req.user
@@ -100,61 +109,74 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/showPets', (req, res) => {
-	
-	if(req.query.search){
-		c=0
+	if (req.query.search) {
+		c = 0;
+
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-		Pets.find({petname:regex}, (err, pets) => {
+		Pets.find({ $or: [ { petname: regex }, { breed: regex } ] }, (err, pets) => {
 			if (err) {
 				console.log(err);
 			} else {
 				console.log(req.user);
 				res.render('showPets', {
-					pets : pets,
-					user : req.user,
+					pets  : pets,
+					user  : req.user,
 					value : c
 				});
 			}
 		});
-
-	}
-	else{
+	} else {
 		Pets.find({}, (err, pets) => {
 			if (err) {
 				console.log(err);
 			} else {
 				console.log(req.user);
 				res.render('showPets', {
-					pets : pets,
-					user : req.user,
+					pets  : pets,
+					user  : req.user,
 					value : c
 				});
 			}
 		});
-
 	}
-	
 });
 
-router.post('/showPets',(req,res)=>{
-	const a=req.body.load;
-	console.log(a);
-    c=0;
-	res.redirect('/showPets');
+router.post('/showPets', (req, res) => {
+	const a = req.body.load;
+	email = req.body.email;
+	console.log(req.body);
+	// Step 2
+	let mailOptions = {
+		from    : 'wpproject264@gmail.com',
+		to      : email,
+		subject : 'Test',
+		text    : 'mail sent....'
+	};
 
+	// Step 3
+	transporter.sendMail(mailOptions, (err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log('Email sent!!!');
+		}
+	});
+
+	c = 0;
+	res.redirect('/showPets');
 });
 
 router.get('/add-pets', (req, res) => {
 	res.render('add_pets');
 });
 router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
-	console.log(req.body);
 	const { petname, petage, breed, color, phone } = req.body;
 	const img_loc = await await cloudinary.uploader
 		.upload(req.file.path, function(error, result) {
 			console.log('no error');
 		})
 		.catch((e) => console.log(e));
+	console.log(req.user.email);
 	var new_pet = new Pets({
 		petname   : petname,
 		petage    : petage,
@@ -163,6 +185,7 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 		phone     : phone,
 		pet_image : img_loc.url
 	});
+	new_pet.owner_email = req.user.email;
 
 	new_pet.save(function(err, result) {
 		if (err) {
@@ -173,9 +196,8 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 	});
 });
 
-
 function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 // export the routes
 module.exports = router;
