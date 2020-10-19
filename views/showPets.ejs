@@ -28,7 +28,7 @@
         <!-- Title -->
         
 
-        <form class="form-inline mr-auto" action="/showPets" method="GET">
+        <form class="form-inline mr-auto" action="/showPets" method=>
             <input class="form-control mr-sm-2" id="bar" type="text" name = "search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success btn-rounded btn-md my-0" id="searchs" value="Search" type="submit">Search</button>
         </form>
@@ -87,6 +87,9 @@
           <%}}%>
         
     </div>
-    <form action="/showPets" method="POST">
-    <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
-  </form>
+    <%if(value==1){%>
+        <form action="/showPets" method="POST">
+            <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
+          </form>
+          <% } %>
+    

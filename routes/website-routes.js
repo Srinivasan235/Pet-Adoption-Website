@@ -103,8 +103,9 @@ router.get('/showPets', (req, res) => {
 	
 	if(req.query.search){
 		c=0
+		
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-		Pets.find({petname:regex}, (err, pets) => {
+		Pets.find({$or:[{petname:regex} ,{breed:regex}]}, (err, pets) => {
 			if (err) {
 				console.log(err);
 			} else {
@@ -112,7 +113,7 @@ router.get('/showPets', (req, res) => {
 				res.render('showPets', {
 					pets : pets,
 					user : req.user,
-					value : c
+					value : c,
 				});
 			}
 		});
@@ -127,7 +128,8 @@ router.get('/showPets', (req, res) => {
 				res.render('showPets', {
 					pets : pets,
 					user : req.user,
-					value : c
+					value : c,
+					
 				});
 			}
 		});
