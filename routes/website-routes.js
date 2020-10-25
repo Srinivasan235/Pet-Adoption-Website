@@ -108,60 +108,45 @@ router.get('/users', (req, res) => {
 	});
 });
 
-router.get('/showPets', (req, res) => {
-<<<<<<< HEAD
-	if (req.query.search) {
-		c = 0;
+// router.get('/showPets', (req, res) => {
+// 	if (req.query.search) {
+// 		c = 0;
 
-		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-		Pets.find({ $or: [ { petname: regex }, { breed: regex } ] }, (err, pets) => {
-=======
-	
-	if(req.query.search){
-		c=0
-		
-		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-		Pets.find({$or:[{petname:regex} ,{breed:regex}]}, (err, pets) => {
->>>>>>> 716a2380d57b0c55095e725e79dae6c1c7de3795
-			if (err) {
-				console.log(err);
-			} else {
-				console.log(req.user);
-				res.render('showPets', {
-<<<<<<< HEAD
-					pets  : pets,
-					user  : req.user,
-					value : c
-=======
-					pets : pets,
-					user : req.user,
-					value : c,
->>>>>>> 716a2380d57b0c55095e725e79dae6c1c7de3795
-				});
-			}
-		});
-	} else {
-		Pets.find({}, (err, pets) => {
-			if (err) {
-				console.log(err);
-			} else {
-				console.log(req.user);
-				res.render('showPets', {
-<<<<<<< HEAD
-					pets  : pets,
-					user  : req.user,
-					value : c
-=======
-					pets : pets,
-					user : req.user,
-					value : c,
-					
->>>>>>> 716a2380d57b0c55095e725e79dae6c1c7de3795
-				});
-			}
-		});
-	}
-});
+// 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+// 		Pets.find({ $or: [ { petname: regex }, { breed: regex } ] }, (err, pets) => {
+
+// 	if(req.query.search){
+// 		c=0
+
+// 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+// 		Pets.find({$or:[{petname:regex} ,{breed:regex}]}, (err, pets) => {
+// 			if (err) {
+// 				console.log(err);
+// 			} else {
+// 				console.log(req.user);
+// 				res.render('showPets', {
+// 					pets  : pets,
+// 					user  : req.user,
+// 					value : c
+// 				});
+// 			}
+// 		});
+// 	} else {
+// 		Pets.find({}, (err, pets) => {
+// 			if (err) {
+// 				console.log(err);
+// 			} else {
+// 				console.log(req.user);
+// 				res.render('showPets', {
+// 					pets  : pets,
+// 					user  : req.user,
+// 					value : c
+
+// 				});
+// 			}
+// 		});
+// 	}
+// });
 
 router.post('/showPets', (req, res) => {
 	const a = req.body.load;
