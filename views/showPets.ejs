@@ -57,9 +57,12 @@
 
 <section id="pricing" class="white-section">
     <h2 class="heading1">MEET OUR RECENT ARRIVALS</h2>
-    <p><%=user.name %></p>
     <div class="row">
         <%  if(value==0){%>
+        <% if (pets.length == 0) { %>
+        <h2>fuck you no results!!!</h2>
+        <% } else {%>
+
         <% pets.forEach(function(pet){ %>
         <div class="pricing-component col-lg-4 col-md-6">
             <div class="card">
@@ -78,27 +81,28 @@
                 </div>
             </div>
         </div>
-    </div>
-    <% }); %>
-    <%}else{%>
-    <% for(var i=0; i<3 ; i++){ %>
-    <div class="pricing-component col-lg-4 col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h3><%=pets[i].petname %></h3>
-            </div>
-            <div class="card-body">
-                <img class="dog-image" src="<%=pets[i].pet_image %>" alt="dog-profile">
+        <% }); %>
+        <% } %>
+        <%}else{%>
+        <% for(var i=0; i<3 ; i++){ %>
+        <div class="pricing-component col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><%=pets[i].petname %></h3>
+                </div>
+                <div class="card-body">
+                    <img class="dog-image" src="<%=pets[i].pet_image %>" alt="dog-profile">
 
-                <p>breed: <%= pets[i].breed %></p>
-                <p>Age: <%= pets[i].petage %></p>
-                <form action="/showPets/<%= pets[i]._id %>">
-                    <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
-                </form>
+                    <p>breed: <%= pets[i].breed %></p>
+                    <p>Age: <%= pets[i].petage %></p>
+
+                    <form action="/showPets/<%= pets[i]._id %>">
+                        <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <%}}%>
+        <%}}%>
 
     </div>
     <%if(value==1){%>
@@ -106,7 +110,3 @@
         <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
     </form>
     <% } %>
-
-
-
-    <%-include("partials/footer")%>

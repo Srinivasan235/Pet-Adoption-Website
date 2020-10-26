@@ -20,7 +20,18 @@ let transporter = nodemailer.createTransport({
 require('../config/cloudinary');
 router.get('', (req, res) => {
 	c = 1;
-	res.render('home');
+	Pets.find({}, (err, pets) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(req.user);
+			res.render('home', {
+				pets  : pets,
+				user  : req.user,
+				value : c
+			});
+		}
+	});
 });
 
 // login route
@@ -116,6 +127,7 @@ router.get('/showPets', (req, res) => {
 				console.log(err);
 			} else {
 				console.log(req.user);
+
 				res.render('showPets', {
 					pets  : pets,
 					user  : req.user,
