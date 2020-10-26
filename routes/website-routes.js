@@ -105,7 +105,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/showPets', (req, res) => {
-	const b = req.user.profile_image;
+	const img = req.user.profile_image;
 
 	if (req.query.search) {
 		c = 0;
@@ -120,7 +120,7 @@ router.get('/showPets', (req, res) => {
 					pets  : pets,
 					user  : req.user,
 					value : c,
-					img   : b
+					img   : img
 				});
 			}
 		});
@@ -133,32 +133,12 @@ router.get('/showPets', (req, res) => {
 				res.render('showPets', {
 					pets  : pets,
 					user  : req.user,
-					value : c
+					value : c,
+					img   : img
 				});
 			}
 		});
 	}
-});
-router.post('/showPets', (req, res) => {
-	const a = req.body.load;
-	email = req.body.email;
-	console.log(req.body);
-	// Step 2
-	let mailOptions = {
-		from    : 'wpproject264@gmail.com',
-		to      : email,
-		subject : 'Test',
-		html    : 'Dear ' + req.user.name + 'idar mail ka content dalna hai'
-	};
-	// Step 3
-	transporter.sendMail(mailOptions, (err, data) => {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log('Email sent!!!');
-		}
-	});
-	c = 0;
 });
 
 router.post('/showPets', (req, res) => {
@@ -190,6 +170,7 @@ router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
 		pet_image : img_loc.url
 	});
 	new_pet.owner_email = req.user.email;
+
 	new_pet.save(function(err, result) {
 		if (err) {
 			console.log(err);

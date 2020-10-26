@@ -35,6 +35,7 @@
 
         <!-- Title -->
 
+
         <form class="form-inline mr-auto" action="/showPets" method=>
             <input class="form-control mr-sm-2" id="bar" type="text" name="search" placeholder="Search"
                 aria-label="Search">
@@ -91,7 +92,6 @@
 
                 <p>breed: <%= pets[i].breed %></p>
                 <p>Age: <%= pets[i].petage %></p>
-
                 <form action="/showPets/<%= pets[i]._id %>">
                     <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
                 </form>
@@ -102,7 +102,6 @@
 
     </div>
     <%if(value==1){%>
-
     <form action="/showPets" method="POST">
         <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
     </form>
