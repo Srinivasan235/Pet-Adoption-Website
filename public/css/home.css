@@ -94,7 +94,9 @@ p {
 
 /* press section */
 .dog-image {
+	max-width: 40%;
 	width: 40%;
+	height: 80px;
 	border-radius: 100%;
 	height: 100px;
 }
