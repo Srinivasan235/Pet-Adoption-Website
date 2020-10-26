@@ -53,6 +53,11 @@
                                 value="<%= typeof name != 'undefined' ? name : '' %>">
                         </div>
                         <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="phone" placeholder="Enter phone"
+                                value="<%= typeof phone != 'undefined' ? phone : '' %>">
+                        </div>
+                        <div class="form-group">
                             <label>Email</label>
                             <input type="email" class="form-control" name='email'
                                 value="<%= typeof email != 'undefined' ? email : '' %>">
@@ -73,6 +78,7 @@
                             <i class="far fa-heart" aria-hidden="true"></i>
                             <input type="file" class="form-control" name="image" id="image">
                         </div>
+
                         <button type="submit" class="btn button">Create account</button>
                     </form>
                     <p class="mt-4">Have An Account? <a class="feat" href="login">Login</a>

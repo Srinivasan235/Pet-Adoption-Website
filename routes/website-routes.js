@@ -5,10 +5,10 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const cloudinary = require('cloudinary').v2;
 const upload = require('../config/multer');
-var c = 1;
+const quotes = require('quotesy');
 const nodemailer = require('nodemailer');
 
-// Step 1
+var c = 1;
 let transporter = nodemailer.createTransport({
 	service : 'gmail',
 	auth    : {
@@ -29,7 +29,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/register', upload.single('image'), async (req, res) => {
-	const { name, email, password, password2 } = req.body;
+	const { name, phone, email, password, password2 } = req.body;
 
 	const loc = await cloudinary.uploader
 		.upload(req.file.path, function(error, result) {
@@ -40,6 +40,9 @@ router.post('/register', upload.single('image'), async (req, res) => {
 	let errors = [];
 	if (!name || !email || !password || !password2) {
 		errors.push({ msg: 'All fields are compulsory' });
+	}
+	if (phone.length != 10) {
+		errors.push({ msg: 'Wrong Phone number' });
 	}
 	if (password.length < 6) {
 		errors.push({ msg: 'Passwords too short' });
@@ -60,7 +63,8 @@ router.post('/register', upload.single('image'), async (req, res) => {
 					const newUser = new User({
 						name,
 						email,
-						password
+						password,
+						phone
 						// profile_img : loc.url
 					});
 
@@ -100,53 +104,9 @@ router.get('/register', (req, res) => {
 	res.render('register');
 });
 
-router.get('/users', (req, res) => {
-	c = 1;
-	res.render('users', {
-		user : req.user
-	});
-});
-
-// router.get('/showPets', (req, res) => {
-// 	if (req.query.search) {
-// 		c = 0;
-// 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-// 		Pets.find({ $or: [ { petname: regex }, { breed: regex } ] }, (err, pets) => {
-// 			if(req.query.search){
-// 				c=0
-// 				const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-// 				Pets.find({$or:[{petname:regex} ,{breed:regex}]}, (err, pets) => {
-// 					if (err) {
-// 						console.log(err);
-// 					}
-// 					else {
-// 						console.log(req.user);
-// 						res.render('showPets', {
-// 							pets  : pets,
-// 							user  : req.user,
-// 							value : c
-// 						});
-// 					}
-// 				});
-// 			} else {
-// 				Pets.find({}, (err, pets) => {
-// 					if (err) {
-// 						console.log(err);
-// 					} else {
-// 						console.log(req.user);
-// 						res.render('showPets', {
-// 							pets  : pets,
-// 							user  : req.user,
-// 							value : c
-// 						});
-// 					}
-// 				});
-// 			}
-// 		});
-
-// };
-
 router.get('/showPets', (req, res) => {
+	const b = req.user.profile_image;
+
 	if (req.query.search) {
 		c = 0;
 
@@ -159,7 +119,8 @@ router.get('/showPets', (req, res) => {
 				res.render('showPets', {
 					pets  : pets,
 					user  : req.user,
-					value : c
+					value : c,
+					img   : b
 				});
 			}
 		});
@@ -198,13 +159,21 @@ router.post('/showPets', (req, res) => {
 		}
 	});
 	c = 0;
+});
+
+router.post('/showPets', (req, res) => {
+	const a = req.body.load;
+
+	console.log(a);
+	c = 0;
 	res.redirect('/showPets');
 });
 
-router.get('/add-pets', (req, res) => {
+router.get('/add_pets', (req, res) => {
 	res.render('add_pets');
 });
-router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
+router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
+	console.log(req.body);
 	const { petname, petage, breed, color, phone } = req.body;
 	const img_loc = await await cloudinary.uploader
 		.upload(req.file.path, function(error, result) {
@@ -226,6 +195,81 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 			console.log(err);
 		} else {
 			res.redirect('/showPets');
+		}
+	});
+});
+
+router.get('/user', (req, res) => {
+	user = req.user;
+	Pets.find({ owner_email: user.email }, (err, pets) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(pets);
+			let inspire = quotes.random();
+			console.log(inspire);
+			res.render('user', { quote: inspire, users: user, pets: pets });
+		}
+	});
+});
+
+router.get('/showPets/:topic', (req, res) => {
+	let a = 0;
+	const re = req.params.topic;
+	console.log(re);
+	Pets.find({}, (err, pets) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('PetProfile', {
+				pets : pets,
+				user : req.user,
+				name : re
+			});
+		}
+	});
+});
+
+router.post('/showPets/:topic', (req, res) => {
+	email = req.body.email;
+	name = req.body.name;
+	user_name = req.user.name;
+	// phone = req.user.phone;
+	email_id = req.user.email;
+
+	console.log(req.body);
+	// Step 2
+	let mailOptions = {
+		from    : 'wpproject264@gmail.com',
+		to      : email,
+		subject : 'Looks like Someone is interested in your pet',
+		html    :
+			'Dear user,<br><br>This is regarding your pet <strong>' +
+			name +
+			'</strong> registered with us. <br> A user has shown interest in your pet. You can contact him with the credentials given below:</br><br>  <strong>Name :</strong>' +
+			user_name +
+			'<br><strong>Phone No :</strong> 1111122223<br><strong>Email_id :</strong>' +
+			email_id
+	};
+	// Step 3
+	transporter.sendMail(mailOptions, (err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log('Email sent!!!');
+		}
+	});
+	c = 0;
+	res.redirect('/showPets');
+});
+router.post('/delete', (req, res) => {
+	u = req.body.id;
+
+	Pets.findOneAndRemove({ _id: u }, (err) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect('/user');
 		}
 	});
 });

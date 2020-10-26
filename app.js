@@ -44,7 +44,12 @@ mongoose
 
 // set up routes
 app.use('/', websiteRoutes);
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
-app.listen(3000, () => {
-	console.log('app started on port 3000');
+
+app.listen(port,function(req,res){
+  console.log("server has started successfully.");
 });

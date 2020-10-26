@@ -98,6 +98,19 @@ p {
 	width: 40%;
 	height: 80px;
 	border-radius: 100%;
+	height: 100px;
+}
+
+.user-img{
+	/* width: 20%;
+	height: 20%;
+	border-radius: 100%;
+	margin-left: 600px; */
+	width: 100px;
+	border-radius: 100%;
+	height: 100px;
+	/* margin-left: 600px */
+
 }
 
 #press {
@@ -147,4 +160,50 @@ p {
 
 .contact {
 	background-color: #f1cdd7;
+}
+.userphoto
+		{
+			color: blue;
+			
+			width: 885px;
+			margin-left: 545px;
+			
+		}
+#Email	{
+			background-color: white;
+			text-align: center;
+		}
+#Name{
+			background-color: white;
+			text-align: center;
+		}
+hr{
+			width: 500px;
+			align-self: center;
+			color: black;
+		}
+.user-profile{
+	margin-top: 20px;
+	width: 300px;
+	height: 300px;
+	border-radius: 100%;
+}
+#Info{
+			background-color: white;
+			text-align: center;
+		}
+.pet-profile{
+	margin-top: 20px;
+	width: 40%;
+	height: 40%;
+	border-radius: 30%;
+
+	
+}
+.userphot{
+	color: blue;
+			
+	width: 885px;
+	margin-left: 568px;
+
 }

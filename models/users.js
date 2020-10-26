@@ -15,6 +15,11 @@ const UserSchema = new mongoose.Schema({
 	},
 	profile_image : {
 		type : String
+	},
+	phone : {
+		type : String,
+		required : true
+
 	}
 });
 

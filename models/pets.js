@@ -27,6 +27,9 @@ const PetSchema = new mongoose.Schema({
 	},
 	owner_email : {
 		type : String
+	},
+	owner_email : {
+		type : String
 	}
 });
 
