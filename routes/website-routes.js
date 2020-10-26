@@ -102,7 +102,6 @@ router.get('/register', (req, res) => {
 
 router.get('/users', (req, res) => {
 	c = 1;
-	console.log(req.user);
 	res.render('users', {
 		user : req.user
 	});
@@ -111,43 +110,74 @@ router.get('/users', (req, res) => {
 // router.get('/showPets', (req, res) => {
 // 	if (req.query.search) {
 // 		c = 0;
-
 // 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 // 		Pets.find({ $or: [ { petname: regex }, { breed: regex } ] }, (err, pets) => {
-
-// 	if(req.query.search){
-// 		c=0
-
-// 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-// 		Pets.find({$or:[{petname:regex} ,{breed:regex}]}, (err, pets) => {
-// 			if (err) {
-// 				console.log(err);
+// 			if(req.query.search){
+// 				c=0
+// 				const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+// 				Pets.find({$or:[{petname:regex} ,{breed:regex}]}, (err, pets) => {
+// 					if (err) {
+// 						console.log(err);
+// 					}
+// 					else {
+// 						console.log(req.user);
+// 						res.render('showPets', {
+// 							pets  : pets,
+// 							user  : req.user,
+// 							value : c
+// 						});
+// 					}
+// 				});
 // 			} else {
-// 				console.log(req.user);
-// 				res.render('showPets', {
-// 					pets  : pets,
-// 					user  : req.user,
-// 					value : c
+// 				Pets.find({}, (err, pets) => {
+// 					if (err) {
+// 						console.log(err);
+// 					} else {
+// 						console.log(req.user);
+// 						res.render('showPets', {
+// 							pets  : pets,
+// 							user  : req.user,
+// 							value : c
+// 						});
+// 					}
 // 				});
 // 			}
 // 		});
-// 	} else {
-// 		Pets.find({}, (err, pets) => {
-// 			if (err) {
-// 				console.log(err);
-// 			} else {
-// 				console.log(req.user);
-// 				res.render('showPets', {
-// 					pets  : pets,
-// 					user  : req.user,
-// 					value : c
 
-// 				});
-// 			}
-// 		});
-// 	}
-// });
+// };
 
+router.get('/showPets', (req, res) => {
+	if (req.query.search) {
+		c = 0;
+
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		Pets.find({ $or: [ { petname: regex }, { breed: regex } ] }, (err, pets) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(req.user);
+				res.render('showPets', {
+					pets  : pets,
+					user  : req.user,
+					value : c
+				});
+			}
+		});
+	} else {
+		Pets.find({}, (err, pets) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(req.user);
+				res.render('showPets', {
+					pets  : pets,
+					user  : req.user,
+					value : c
+				});
+			}
+		});
+	}
+});
 router.post('/showPets', (req, res) => {
 	const a = req.body.load;
 	email = req.body.email;
@@ -157,9 +187,8 @@ router.post('/showPets', (req, res) => {
 		from    : 'wpproject264@gmail.com',
 		to      : email,
 		subject : 'Test',
-		text    : 'mail sent....'
+		html    : 'Dear ' + req.user.name + 'idar mail ka content dalna hai'
 	};
-
 	// Step 3
 	transporter.sendMail(mailOptions, (err, data) => {
 		if (err) {
@@ -168,7 +197,6 @@ router.post('/showPets', (req, res) => {
 			console.log('Email sent!!!');
 		}
 	});
-
 	c = 0;
 	res.redirect('/showPets');
 });
@@ -193,7 +221,6 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 		pet_image : img_loc.url
 	});
 	new_pet.owner_email = req.user.email;
-
 	new_pet.save(function(err, result) {
 		if (err) {
 			console.log(err);
@@ -206,5 +233,6 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 function escapeRegex(text) {
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
+
 // export the routes
 module.exports = router;
