@@ -5,7 +5,17 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const cloudinary = require('cloudinary').v2;
 const upload = require('../config/multer');
+const quotes = require("quotesy");
+const nodemailer = require("nodemailer");
+
 var c=1;
+let transporter = nodemailer.createTransport({
+	service : 'gmail',
+	auth    : {
+		user : 'wpproject264@gmail.com',
+		pass : 'Sachin@100'
+	}
+});
 
 require('../config/cloudinary');
 router.get('', (req, res) => {
@@ -19,7 +29,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/register', upload.single('image'), async (req, res) => {
-	const { name, email, password, password2 } = req.body;
+	const { name,phone, email, password, password2 } = req.body;
 
 	const loc = await cloudinary.uploader
 		.upload(req.file.path, function(error, result) {
@@ -30,6 +40,10 @@ router.post('/register', upload.single('image'), async (req, res) => {
 	let errors = [];
 	if (!name || !email || !password || !password2) {
 		errors.push({ msg: 'All fields are compulsory' });
+	}
+	if (phone.length!=10){
+		errors.push({ msg: 'Wrong Phone number' });
+
 	}
 	if (password.length < 6) {
 		errors.push({ msg: 'Passwords too short' });
@@ -50,7 +64,8 @@ router.post('/register', upload.single('image'), async (req, res) => {
 					const newUser = new User({
 						name,
 						email,
-						password
+						password,
+						phone
 						// profile_img : loc.url
 					});
 
@@ -91,15 +106,10 @@ router.get('/register', (req, res) => {
 	res.render('register');
 });
 
-router.get('/users', (req, res) => {
-	c=1;
-	console.log(req.user);
-	res.render('users', {
-		user : req.user
-	});
-});
+
 
 router.get('/showPets', (req, res) => {
+	const b=req.user.profile_image;
 	
 	if(req.query.search){
 		c=0
@@ -114,6 +124,7 @@ router.get('/showPets', (req, res) => {
 					pets : pets,
 					user : req.user,
 					value : c,
+					img :b
 				});
 			}
 		});
@@ -129,6 +140,7 @@ router.get('/showPets', (req, res) => {
 					pets : pets,
 					user : req.user,
 					value : c,
+					img :b
 					
 				});
 			}
@@ -140,16 +152,17 @@ router.get('/showPets', (req, res) => {
 
 router.post('/showPets',(req,res)=>{
 	const a=req.body.load;
+	
 	console.log(a);
     c=0;
 	res.redirect('/showPets');
 
 });
 
-router.get('/add-pets', (req, res) => {
+router.get('/add_pets', (req, res) => {
 	res.render('add_pets');
 });
-router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
+router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
 	console.log(req.body);
 	const { petname, petage, breed, color, phone } = req.body;
 	const img_loc = await await cloudinary.uploader
@@ -163,8 +176,9 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 		color     : color,
 		breed     : breed,
 		phone     : phone,
-		pet_image : img_loc.url
+		pet_image : img_loc.url,
 	});
+	new_pet.owner_email = req.user.email;
 
 	new_pet.save(function(err, result) {
 		if (err) {
@@ -175,9 +189,93 @@ router.post('/add-pets', upload.single('pet_image'), async (req, res) => {
 	});
 });
 
+router.get('/user',(req,res)=>{
+	user = req.user;
+	Pets.find({owner_email:user.email}, (err, pets) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(pets);
+		let inspire =quotes.random();
+		console.log(inspire);
+		res.render('user',{quote:inspire,users:user,pets:pets});
+			
+			
+		}
+	});
+	
+	
+
+});
+
+router.get("/showPets/:topic",(req,res)=>{
+    let a=0;
+	const re=req.params.topic;
+	console.log(re);
+	Pets.find({}, (err, pets) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.render('PetProfile', {
+				pets  : pets,
+				user : req.user,
+				name : re
+				
+			});
+		}
+	});
+
+});
+
+router.post("/showPets/:topic",(req,res)=>{
+	email = req.body.email;
+	name = req.body.name;
+	user_name=req.user.name;
+	// phone = req.user.phone;
+	email_id=req.user.email;
+
+
+	console.log(req.body);
+	// Step 2
+	let mailOptions = {
+		from    : 'wpproject264@gmail.com',
+		to      : email,
+		subject : 'Looks like Someone is interested in your pet',
+		html    : 'Dear user,<br><br>This is regarding your pet <strong>'+name+'</strong> registered with us. <br> A user has shown interest in your pet. You can contact him with the credentials given below:</br><br>  <strong>Name :</strong>'+user_name+'<br><strong>Phone No :</strong> 1111122223<br><strong>Email_id :</strong>'+email_id
+	};
+	// Step 3
+	transporter.sendMail(mailOptions, (err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log('Email sent!!!');
+		}
+	});
+	c = 0;
+	res.redirect('/showPets');
+
+
+});
+router.post("/delete",(req,res)=>{
+	u= req.body.id;
+
+	Pets.findOneAndRemove({_id:u},(err)=>{
+		if(err){
+			console.log(err);
+		}else{
+			
+			res.redirect('/user');
+
+
+		}
+	});
+
+});
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
+
+
 // export the routes
 module.exports = router;

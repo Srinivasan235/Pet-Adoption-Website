@@ -24,6 +24,9 @@ const PetSchema = new mongoose.Schema({
 	},
 	pet_image : {
 		type : String
+	},
+	owner_email : {
+		type : String
 	}
 });
 

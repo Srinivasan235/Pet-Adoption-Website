@@ -10,17 +10,24 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+               
                 <ul class="navbar-nav">
+                    <div class="row align-items-center">
+                   
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/logout">logout</a>
+                        <a class="nav-link" href="/add_pets">Rehome</a>
                     </li>
+                
                     <li class="nav-item active">
-                        <a class="nav-link" href="/add-pets">Rehome</a>
+                        <a class="nav-link" href="/user"><img class="user-img" src="<%=img%>" alt="user_Profile"></a>
                     </li>
+                </div>
+                    
                 </ul>
+            
             </div>
         </nav>
 
@@ -62,7 +69,9 @@
                         <p>breed: <%= pet.breed %></p>
                         <p>Age: <%= pet.petage %></p>
     
-                        <button type="button" class="btn btn-dark btn-lg button2">Adopt</button>
+                        <form action="/showPets/<%= pet._id %>" >
+                            <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                          </form>
                     </div>
                 </div>
             </div>
@@ -79,8 +88,10 @@
   
                       <p>breed: <%= pets[i].breed %></p>
                       <p>Age: <%= pets[i].petage %></p>
-  
-                      <button type="button" class="btn btn-dark btn-lg button2">Adopt</button>
+
+                      <form action="/showPets/<%= pets[i]._id %>" >
+                      <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                    </form>
                   </div>
               </div>
           </div>
@@ -92,4 +103,6 @@
             <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
           </form>
           <% } %>
+
+ <%-include("partials/footer")%>
     
