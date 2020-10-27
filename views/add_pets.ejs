@@ -50,33 +50,33 @@
                         <br>
                         <br>
                         <div class="form-group">
-                            <label class="name">Pet Name</label>
+                            <label class="name">Pet Name<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="petname" placeholder="Enter name"
                                 value="<%= typeof petname != 'undefined' ? petname : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Pet Age</label>
+                            <label>Pet Age<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name='petage' placeholder="Enter age"
                                 value="<%= typeof petage != 'undefined' ? petage : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Breed</label>
+                            <label>Breed<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="breed" placeholder="Enter breed"
                                 value="<%= typeof breed != 'undefined' ? breed : '' %>">
                         </div>
 
                         <div class="form-group">
-                            <label>Color</label>
+                            <label>Color<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="color" placeholder="Enter color"
                                 value="<%= typeof color != 'undefined' ? color : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Phone</label>
+                            <label>Phone<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="phone" placeholder="Enter phone"
                                 value="<%= typeof phone != 'undefined' ? phone : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Image</label>
+                            <label>Image<span class="compulsory">*</span></label>
                             <input type="file" class="form-control" name="pet_image" id="pet_image" required=true>
                         </div>
                         <button type="submit" class="btn button">Add Pet</button>

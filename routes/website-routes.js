@@ -7,7 +7,8 @@ const cloudinary = require('cloudinary').v2;
 const upload = require('../config/multer');
 const quotes = require('quotesy');
 const nodemailer = require('nodemailer');
-
+const passwordValidator = require('password-validator');
+const check = new passwordValidator();
 var c = 1;
 let transporter = nodemailer.createTransport({
 	service : 'gmail',
@@ -43,6 +44,8 @@ router.get('/login', (req, res) => {
 router.post('/register', upload.single('image'), async (req, res) => {
 	const { name, phone, email, password, password2 } = req.body;
 
+	check.has().uppercase().has().lowercase().has().digits(2);
+
 	const loc = await cloudinary.uploader
 		.upload(req.file.path, function(error, result) {
 			console.log('no error');
@@ -58,6 +61,9 @@ router.post('/register', upload.single('image'), async (req, res) => {
 	}
 	if (password.length < 6) {
 		errors.push({ msg: 'Passwords too short' });
+	}
+	if (check.validate(password) == false) {
+		errors.push({ msg: 'Password too weak' });
 	}
 	if (password != password2) {
 		errors.push({ msg: 'Passwords do not match' });
@@ -109,7 +115,7 @@ router.post('/login', (req, res, next) => {
 // Logout
 router.get('/logout', (req, res) => {
 	req.logout();
-	res.redirect('/');
+	res.redirect('/login');
 });
 // register route
 router.get('/register', (req, res) => {
@@ -282,6 +288,25 @@ router.post('/delete', checkAuthentication, (req, res) => {
 // router.use((req, res) => {
 // 	res.sendFile('../views/login.ejs', { root: __dirname });
 // });
+
+router.get('/edit', (req, res) => {
+	user = req.user;
+	res.render('edit', { user: user });
+});
+
+router.post('/edit', (req, res) => {
+	namer = req.body.name;
+	phone = req.body.phone;
+
+	const query = { email: req.body.email };
+	User.findOneAndUpdate(query, { name: namer, phone: phone }, (err) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.redirect('/user');
+		}
+	});
+});
 
 function escapeRegex(text) {
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
