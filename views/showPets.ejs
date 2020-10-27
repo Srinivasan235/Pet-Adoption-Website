@@ -10,24 +10,25 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-               
+
                 <ul class="navbar-nav">
                     <div class="row align-items-center">
-                   
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/add_pets">Rehome</a>
-                    </li>
-                
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/user"><img class="user-img" src="<%=img%>" alt="user_Profile"></a>
-                    </li>
-                </div>
-                    
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/add_pets">Rehome</a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/user"><img class="user-img" src="<%=img%>"
+                                    alt="user_Profile"></a>
+                        </li>
+                    </div>
+
                 </ul>
-            
+
             </div>
         </nav>
 
@@ -56,60 +57,58 @@
 
 <section id="pricing" class="white-section">
     <h2 class="heading1">MEET OUR RECENT ARRIVALS</h2>
-    <p><%=user.name %></p>
     <div class="row">
-      <%  if(value==0){%>
-          <% pets.forEach(function(pet){ %>
-            <div class="pricing-component col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><%=pet.petname %></h3>
-                    </div>
-                    <div class="card-body">
-                        <img class="dog-image" src="<%=pet.pet_image %>" alt="dog-profile">
-    
-                        <p>breed: <%= pet.breed %></p>
-                        <p>Age: <%= pet.petage %></p>
-    
-                        <form action="/showPets/<%= pet._id %>" >
-                            <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
-                          </form>
-                    </div>
+        <%  if(value==0){%>
+        <% if (pets.length == 0) { %>
+        <h2>fuck you no results!!!</h2>
+        <% } else {%>
+
+        <% pets.forEach(function(pet){ %>
+        <div class="pricing-component col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><%=pet.petname %></h3>
+                </div>
+                <div class="card-body">
+                    <img class="dog-image" src="<%=pet.pet_image %>" alt="dog-profile">
+
+                    <p>breed: <%= pet.breed %></p>
+                    <p>Age: <%= pet.petage %></p>
+
+                    <form action="/showPets/<%= pet._id %>">
+                        <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                    </form>
                 </div>
             </div>
         </div>
         <% }); %>
+        <% } %>
         <%}else{%>
-          <% for(var i=0; i<3 ; i++){ %>
-            <div class="pricing-component col-lg-4 col-md-6">
-              <div class="card">
-                  <div class="card-header">
-                      <h3><%=pets[i].petname %></h3>
-                  </div>
-                  <div class="card-body">
-                      <img class="dog-image" src="<%=pets[i].pet_image %>" alt="dog-profile">
-  
-                      <p>breed: <%= pets[i].breed %></p>
-                      <p>Age: <%= pets[i].petage %></p>
+        <% for(var i=0; i<3 ; i++){ %>
+        <div class="pricing-component col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><%=pets[i].petname %></h3>
+                </div>
+                <div class="card-body">
+                    <img class="dog-image" src="<%=pets[i].pet_image %>" alt="dog-profile">
 
-                      <form action="/showPets/<%= pets[i]._id %>" >
-                      <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                    <p>breed: <%= pets[i].breed %></p>
+                    <p>Age: <%= pets[i].petage %></p>
+
+                    <form action="/showPets/<%= pets[i]._id %>">
+                        <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
                     </form>
-                  </div>
-              </div>
-          </div>
-          <%}}%>
-        
+                </div>
+            </div>
+        </div>
+        <%}}%>
+
     </div>
     <%if(value==1){%>
-
     <form action="/showPets" method="POST">
         <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
     </form>
     <% } %>
 
-
-
- <%-include("partials/footer")%>
-    
-
+    <%-include("partials/footer")%>

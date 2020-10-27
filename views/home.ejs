@@ -26,8 +26,8 @@
       <div class="col-lg-6">
         <h3 class="heading3">The online pet adoption community where people who want to adopt a pet connect with people
           who need to rehome a dog or cat.</h3>
-          <a  href="/register"><button type="button" class="btn btn-dark btn-lg button1">Adopt</button></a>
-          <a  href="/register"><button type="button" class="btn btn-dark btn-lg button1">Rehome</button></a>
+        <a href="/register"><button type="button" class="btn btn-dark btn-lg button1">Adopt</button></a>
+        <a href="/register"><button type="button" class="btn btn-dark btn-lg button1">Rehome</button></a>
       </div>
       <div class="col-lg-6">
         <img class="image1" src="images/dogBanner.svg" alt="iphone-mockup">
@@ -123,55 +123,29 @@
 
 
 <!-- Pricing -->
+
+
 <section id="pricing" class="white-section">
   <h2 class="heading1">MEET OUR RECENT ARRIVALS</h2>
-  <p></p>
   <div class="row">
+    <% for(var i=0; i<3 ; i++){ %>
     <div class="pricing-component col-lg-4 col-md-6">
       <div class="card">
         <div class="card-header">
-          <h3>AfghanHound</h3>
+          <h3><%=pets[i].petname %></h3>
         </div>
         <div class="card-body">
-          <img class="dog-image" src="images/AfghanHound.jpg" alt="dog-profile">
-          <p>Afghan Hound</p>
-          <p>Age: 8</p>
+          <img class="dog-image" src="<%=pets[i].pet_image %>" alt="dog-profile">
 
-          <button type="button" class="btn btn-dark btn-lg button2">Adopt</button>
+          <p>breed: <%= pets[i].breed %></p>
+          <p>Age: <%= pets[i].petage %></p>
+
+          <a href="/register"><button type="button" class="btn btn-dark btn-lg button1">Adopt</button></a>
         </div>
       </div>
-
-
     </div>
-    <div class="pricing-component col-lg-4 col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h3>Boxer</h3>
-        </div>
-        <div class="card-body">
-          <img class="dog-image" src="images/boxer.jpg" alt="dog-profile">
-          <p>Boxer</p>
-          <p>Age: 5</p>
-          <button type="button" class="btn btn-dark btn-lg button2">Adopt</button>
-        </div>
-      </div>
+    <%}%>
+</div>
+</section>
 
-    </div>
-    <div class="pricing-component col-lg-4">
-      <div class="card">
-        <div class="card-header">
-          <h3>Pug</h3>
-        </div>
-        <div class="card-body">
-          <img class="dog-image" src="images/pug.jpg" alt="dog-profile">
-          <p>Pug</p>
-          <p>Age: 6</p>
-          <button type="button" class="btn btn-dark btn-lg button2">Adopt</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-  <%-include("partials/footer")%>
+<%-include("partials/footer")%>
