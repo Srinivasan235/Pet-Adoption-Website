@@ -18,6 +18,12 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/add_pets">Rehome</a>
                     </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/edit">Edit</a>
+                    </li>
+
+
                     <li class="nav-item active">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
@@ -40,7 +46,7 @@
 </section>
 
 <div class="container center">
-    <div class="userphot">
+    <div class="userphot1">
         <img src="<%=users.profile_image %>" class="user-profile" width="170px" height="250px" alt="User Photo Here">
     </div>
 </div>
@@ -55,11 +61,9 @@
     </div>
     <hr>
     <div id="Email">
-        Phone_No:<%= users.phone%>
+        Phone No:<%= users.phone%>
     </div>
-    <div id="Email">
-        <a href="/edit"><button type="button" class="btn btn-dark btn-lg button1">Edit</button></a>
-    </div>
+
 </div>
 
 
