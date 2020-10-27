@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Donate</title>
+    <title>Rehome</title>
 
     <!-- css file -->
     <link rel="stylesheet" href="css/register.css">
@@ -26,7 +26,7 @@
             <div class="col-sm-12 col-md-6 col-lg-5 left-side d-none d-md-block">
                 <div class="container">
                     <div class="row login-left">
-                        <p class="brand-name">Donate Pet</p>
+                        <p class="brand-name">Rehome Pet</p>
                         <img class="img-fluid" src="images/add-pets.svg">
 
                     </div>
@@ -38,6 +38,8 @@
                 <div class="login-form">
 
                     <form action="add_pets" method="POST" enctype="multipart/form-data">
+                        <br>
+                        <br>
                         <% if(typeof errors != 'undefined'){ %> <% errors.forEach(function(error) { %>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -75,7 +77,7 @@
                         </div>
                         <div class="form-group">
                             <label>Image</label>
-                            <input type="file" class="form-control" name="pet_image" id="pet_image">
+                            <input type="file" class="form-control" name="pet_image" id="pet_image" required=true>
                         </div>
                         <button type="submit" class="btn button">Add Pet</button>
                     </form>

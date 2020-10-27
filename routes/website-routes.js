@@ -20,6 +20,7 @@ let transporter = nodemailer.createTransport({
 require('../config/cloudinary');
 router.get('', (req, res) => {
 	c = 1;
+
 	Pets.find({}, (err, pets) => {
 		if (err) {
 			console.log(err);
@@ -172,24 +173,35 @@ router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
 			console.log('no error');
 		})
 		.catch((e) => console.log(e));
-	console.log(req.user.email);
-	var new_pet = new Pets({
-		petname   : petname,
-		petage    : petage,
-		color     : color,
-		breed     : breed,
-		phone     : phone,
-		pet_image : img_loc.url
-	});
-	new_pet.owner_email = req.user.email;
+	let errors = [];
+	if (!petname || !petage || !breed || !color || !phone) {
+		errors.push({ msg: 'All fields are compulsory' });
+	}
+	if (phone.length != 10) {
+		errors.push({ msg: 'Wrong Phone number' });
+	}
 
-	new_pet.save(function(err, result) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.redirect('/showPets');
-		}
-	});
+	if (errors.length > 0) {
+		res.render('add_pets', { errors, petname, petage, breed, color, phone });
+	} else {
+		var new_pet = new Pets({
+			petname   : petname,
+			petage    : petage,
+			color     : color,
+			breed     : breed,
+			phone     : phone,
+			pet_image : img_loc.url
+		});
+		new_pet.owner_email = req.user.email;
+
+		new_pet.save(function(err, result) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.redirect('/showPets');
+			}
+		});
+	}
 });
 
 router.get('/user', checkAuthentication, (req, res) => {
