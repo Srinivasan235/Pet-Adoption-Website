@@ -48,35 +48,35 @@
                         <% }); %>
                         <% } %>
                         <div class="form-group">
-                            <label class="name">Name</label>
-                            <input type="text" class="form-control" name="name"
+                            <label class="name">Name<span class="compulsory">*</span></label>
+                            <input type="text" class="form-control" name="name" placeholder="Enter Name"
                                 value="<%= typeof name != 'undefined' ? name : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Phone</label>
+                            <label>Phone<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="phone" placeholder="Enter phone"
                                 value="<%= typeof phone != 'undefined' ? phone : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name='email'
+                            <label>Email<span class="compulsory">*</span></label>
+                            <input type="email" class="form-control" name='email' placeholder="Enter Email"
                                 value="<%= typeof email != 'undefined' ? email : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" name="password"
+                            <label>Password<span class="compulsory">*</span></label>
+                            <input type="password" class="form-control" name="password" placeholder="Enter Password"
                                 value="<%= typeof password != 'undefined' ? password : '' %>">
                         </div>
 
                         <div class="form-group">
-                            <label>Re-Enter Password</label>
+                            <label>Re-Enter Password<span class="compulsory">*</span></label>
                             <input type="password" class="form-control" name="password2"
+                                placeholder="Re-Enter Password "
                                 value="<%= typeof password2 != 'undefined' ? password2 : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Profile image</label>
-                            <i class="far fa-heart" aria-hidden="true"></i>
-                            <input type="file" class="form-control" name="image" id="image">
+                            <label>Profile image <span class="compulsory">*</span></label>
+                            <input type="file" class="form-control" name="image" id="image" required=true>
                         </div>
 
                         <button type="submit" class="btn button">Create account</button>

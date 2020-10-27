@@ -39,12 +39,11 @@
                 <div class="login-form">
                     <br>
                     <h2 class="sign">Edit Your Account </h2>
-                    <form action="/edit" method="POST" >
-                        
+                    <form action="/edit" method="POST">
+
                         <div class="form-group">
                             <label class="name">Name</label>
-                            <input type="text" class="form-control" name="name"
-                                value="<%= user.name %>">
+                            <input type="text" class="form-control" name="name" value="<%= user.name %>">
                         </div>
                         <div class="form-group">
                             <label>Phone</label>
@@ -52,17 +51,16 @@
                                 value="<%= user.phone %>">
                         </div>
                         <div class="form-group">
-                            
-                            <input type="hidden" class="form-control" name='email'
-                                value="<%= user.email %>">
+
+                            <input type="hidden" class="form-control" name='email' value="<%= user.email %>">
                         </div>
-                        
-                       
-                       
+
+
+
 
                         <button type="submit" class="btn button">Edit account</button>
                     </form>
-                    
+
                 </div>
 
             </div>

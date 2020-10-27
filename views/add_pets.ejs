@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Donate</title>
+    <title>Rehome</title>
 
     <!-- css file -->
     <link rel="stylesheet" href="css/register.css">
@@ -26,7 +26,7 @@
             <div class="col-sm-12 col-md-6 col-lg-5 left-side d-none d-md-block">
                 <div class="container">
                     <div class="row login-left">
-                        <p class="brand-name">Donate Pet</p>
+                        <p class="brand-name">Rehome Pet</p>
                         <img class="img-fluid" src="images/add-pets.svg">
 
                     </div>
@@ -38,6 +38,8 @@
                 <div class="login-form">
 
                     <form action="add_pets" method="POST" enctype="multipart/form-data">
+                        <br>
+                        <br>
                         <% if(typeof errors != 'undefined'){ %> <% errors.forEach(function(error) { %>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -48,34 +50,34 @@
                         <br>
                         <br>
                         <div class="form-group">
-                            <label class="name">Pet Name</label>
+                            <label class="name">Pet Name<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="petname" placeholder="Enter name"
                                 value="<%= typeof petname != 'undefined' ? petname : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Pet Age</label>
+                            <label>Pet Age<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name='petage' placeholder="Enter age"
                                 value="<%= typeof petage != 'undefined' ? petage : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Breed</label>
+                            <label>Breed<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="breed" placeholder="Enter breed"
                                 value="<%= typeof breed != 'undefined' ? breed : '' %>">
                         </div>
 
                         <div class="form-group">
-                            <label>Color</label>
+                            <label>Color<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="color" placeholder="Enter color"
                                 value="<%= typeof color != 'undefined' ? color : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Phone</label>
+                            <label>Phone<span class="compulsory">*</span></label>
                             <input type="text" class="form-control" name="phone" placeholder="Enter phone"
                                 value="<%= typeof phone != 'undefined' ? phone : '' %>">
                         </div>
                         <div class="form-group">
-                            <label>Image</label>
-                            <input type="file" class="form-control" name="pet_image" id="pet_image">
+                            <label>Image<span class="compulsory">*</span></label>
+                            <input type="file" class="form-control" name="pet_image" id="pet_image" required=true>
                         </div>
                         <button type="submit" class="btn button">Add Pet</button>
                     </form>

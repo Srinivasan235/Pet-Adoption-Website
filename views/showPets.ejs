@@ -58,52 +58,55 @@
 
 <section id="pricing" class="white-section">
     <h2 class="heading1">MEET OUR RECENT ARRIVALS</h2>
+
     <div class="row">
         <%  if(value==0){%>
         <% if (pets.length == 0) { %>
-        <h2>fuck you no results!!!</h2>
-        <% } else {%>
+        <br>
+        <br>
+        <h2 class="heading1 p-5">Sorry no results found.....</>
+            <% } else {%>
 
-        <% pets.forEach(function(pet){ %>
-        <div class="pricing-component col-lg-4 col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3><%=pet.petname %></h3>
-                </div>
-                <div class="card-body">
-                    <img class="dog-image" src="<%=pet.pet_image %>" alt="dog-profile">
+            <% pets.forEach(function(pet){ %>
+            <div class="pricing-component col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><%=pet.petname %></h3>
+                    </div>
+                    <div class="card-body">
+                        <img class="dog-image" src="<%=pet.pet_image %>" alt="dog-profile">
 
-                    <p>breed: <%= pet.breed %></p>
-                    <p>Age: <%= pet.petage %></p>
+                        <p>breed: <%= pet.breed %></p>
+                        <p>Age: <%= pet.petage %></p>
 
-                    <form action="/showPets/<%= pet._id %>">
-                        <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <% }); %>
-        <% } %>
-        <%}else{%>
-        <% for(var i=0; i<3 ; i++){ %>
-        <div class="pricing-component col-lg-4 col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3><%=pets[i].petname %></h3>
-                </div>
-                <div class="card-body">
-                    <img class="dog-image" src="<%=pets[i].pet_image %>" alt="dog-profile">
-
-                    <p>breed: <%= pets[i].breed %></p>
-                    <p>Age: <%= pets[i].petage %></p>
-
-                    <form action="/showPets/<%= pets[i]._id %>">
-                        <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
-                    </form>
+                        <form action="/showPets/<%= pet._id %>">
+                            <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <%}}%>
+            <% }); %>
+            <% } %>
+            <%}else{%>
+            <% for(var i=0; i<3 ; i++){ %>
+            <div class="pricing-component col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><%=pets[i].petname %></h3>
+                    </div>
+                    <div class="card-body">
+                        <img class="dog-image" src="<%=pets[i].pet_image %>" alt="dog-profile">
+
+                        <p>breed: <%= pets[i].breed %></p>
+                        <p>Age: <%= pets[i].petage %></p>
+
+                        <form action="/showPets/<%= pets[i]._id %>">
+                            <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%}}%>
 
     </div>
     <%if(value==1){%>
@@ -111,12 +114,6 @@
         <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
     </form>
     <% } %>
-    <%if(e==1){%>
-        <script>
-            alert("Congratulations");
-            
-        </script>
-        <%= e=0 %>
-    <%}%>
+    
 
     <%-include("partials/footer")%>

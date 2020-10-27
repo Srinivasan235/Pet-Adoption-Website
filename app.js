@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
-
 const app = express();
 
 // uri string
@@ -41,6 +40,8 @@ mongoose
 	})
 	.then(() => console.log('MongoDB Connected'))
 	.catch((e) => console.log(e));
+
+
 
 // set up routes
 app.use('/', websiteRoutes);
