@@ -39,26 +39,29 @@
 
 </section>
 
-<div class="userphot">
-    <img src="<%=users.profile_image %>" class="user-profile" width="170px" height="250px" alt="User Photo Here">
+<div class="container center">
+    <div class="userphot">
+        <img src="<%=users.profile_image %>" class="user-profile" width="170px" height="250px" alt="User Photo Here">
+    </div>
 </div>
 <hr>
+
 <div id="Name">
     Name: <%=users.name %>
-</div>
-<hr>
-<div id="Email">
-    Email: <%=users.email %>
-</div>
-<hr>
-<div id="Email">
-    Phone_No:<%= users.phone%>
-</div>
-<div id="Email">
-    <a href="/edit"><button type="button" class="btn btn-dark btn-lg button1">Edit</button></a>
+    </>
+    <hr>
+    <div id="Email">
+        Email: <%=users.email %>
+    </div>
+    <hr>
+    <div id="Email">
+        Phone_No:<%= users.phone%>
+    </div>
+    <div id="Email">
+        <a href="/edit"><button type="button" class="btn btn-dark btn-lg button1">Edit</button></a>
+    </div>
 </div>
 
-</div>
 
 
 

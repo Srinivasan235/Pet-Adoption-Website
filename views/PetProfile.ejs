@@ -37,8 +37,7 @@
 
 <% pets.forEach(function(pet){ %>
 <% if(name==pet._id){%>
-
-<div class="userphoto">
+<div>
     <img src="<%=pet.pet_image %>" class="pet-profile justify-content-center" alt="User Photo Here">
 </div>
 <hr>
@@ -57,19 +56,15 @@
     <hr>
     <div class="row justify-content-center ">
         <div class="col-lg-6">
-            <form action="" method="POST">
+            <form action="/showPets/:<%= pet._id %>" method="POST">
                 <input type="hidden" name="email" value="<%= pet.owner_email %>">
                 <input type="hidden" name="name" value="<%=pet.petname %>">
-
                 <button type="submit" class="btn btn-dark btn-lg button1 j">Adopt</button>
-
             </form>
 
         </div>
-
     </div>
 </div>
-
 </div>
 <% }%>
 <% }); %>

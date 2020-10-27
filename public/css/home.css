@@ -195,9 +195,9 @@ hr {
 }
 .pet-profile {
 	margin-top: 20px;
-	width: 45%;
-	height: 45%;
-	align-items: center;
+	width: 35%;
+	height: 35%;
+	margin-left: 34%;
 	border-radius: 20%;
 }
 .userphot {

@@ -245,7 +245,7 @@ router.post('/showPets/:topic', checkAuthentication, (req, res) => {
 	email = req.body.email;
 	name = req.body.name;
 	user_name = req.user.name;
-	// phone = req.user.phone;
+	phone = req.user.phone;
 	email_id = req.user.email;
 
 	console.log(req.body);
@@ -259,7 +259,9 @@ router.post('/showPets/:topic', checkAuthentication, (req, res) => {
 			name +
 			'</strong> registered with us. <br> A user has shown interest in your pet. You can contact him with the credentials given below:</br><br>  <strong>Name :</strong>' +
 			user_name +
-			'<br><strong>Phone No :</strong> 1111122223<br><strong>Email_id :</strong>' +
+			'<br><strong>Phone No :</strong>' +
+			phone +
+			'<br><strong>Email_id :</strong>' +
 			email_id
 	};
 	// Step 3
