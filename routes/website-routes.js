@@ -19,7 +19,8 @@ let transporter = nodemailer.createTransport({
 });
 
 require('../config/cloudinary');
-router.get('', (req, res) => {
+router.get('/', (req, res) => {
+	d=0
 	c = 1;
 
 	Pets.find({}, (err, pets) => {
@@ -38,6 +39,7 @@ router.get('', (req, res) => {
 
 // login route
 router.get('/login', (req, res) => {
+	d=0
 	res.render('login');
 });
 
@@ -114,11 +116,13 @@ router.post('/login', (req, res, next) => {
 
 // Logout
 router.get('/logout', (req, res) => {
+	d=0
 	req.logout();
-	res.redirect('/login');
+	res.redirect('/');
 });
 // register route
 router.get('/register', (req, res) => {
+	d=0
 	res.render('register');
 });
 
@@ -153,7 +157,8 @@ router.get('/showPets', checkAuthentication, (req, res) => {
 					pets  : pets,
 					user  : req.user,
 					value : c,
-					img   : img
+					img   : img,
+					
 				});
 			}
 		});
@@ -174,7 +179,7 @@ router.get('/add_pets', checkAuthentication, (req, res) => {
 router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
 	console.log(req.body);
 	const { petname, petage, breed, color, phone } = req.body;
-	const img_loc = await await cloudinary.uploader
+	const img_loc =  await cloudinary.uploader
 		.upload(req.file.path, function(error, result) {
 			console.log('no error');
 		})
@@ -216,9 +221,9 @@ router.get('/user', checkAuthentication, (req, res) => {
 		if (err) {
 			console.log(err);
 		} else {
-			console.log(pets);
+			
 			let inspire = quotes.random();
-			console.log(inspire);
+		
 			res.render('user', { quote: inspire, users: user, pets: pets });
 		}
 	});
@@ -324,4 +329,5 @@ function checkAuthentication(req, res, next) {
 }
 
 // export the routes
+
 module.exports = router;

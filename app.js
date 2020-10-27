@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
-const flash = require('connect-flash');
 const app = express();
 
 // uri string
@@ -43,7 +42,7 @@ mongoose
 	.catch((e) => console.log(e));
 
 
-app.use(flash());
+
 // set up routes
 app.use('/', websiteRoutes);
 let port = process.env.PORT;
