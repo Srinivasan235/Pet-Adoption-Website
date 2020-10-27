@@ -115,7 +115,7 @@ router.get('/register', (req, res) => {
 	res.render('register');
 });
 
-router.get('/showPets', (req, res) => {
+router.get('/showPets', checkAuthentication, (req, res) => {
 	const img = req.user.profile_image;
 
 	if (req.query.search) {
@@ -153,7 +153,7 @@ router.get('/showPets', (req, res) => {
 	}
 });
 
-router.post('/showPets', (req, res) => {
+router.post('/showPets', checkAuthentication, (req, res) => {
 	const a = req.body.load;
 
 	console.log(a);
@@ -161,7 +161,7 @@ router.post('/showPets', (req, res) => {
 	res.redirect('/showPets');
 });
 
-router.get('/add_pets', (req, res) => {
+router.get('/add_pets', checkAuthentication, (req, res) => {
 	res.render('add_pets');
 });
 router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
@@ -192,7 +192,7 @@ router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
 	});
 });
 
-router.get('/user', (req, res) => {
+router.get('/user', checkAuthentication, (req, res) => {
 	user = req.user;
 	Pets.find({ owner_email: user.email }, (err, pets) => {
 		if (err) {
@@ -206,7 +206,7 @@ router.get('/user', (req, res) => {
 	});
 });
 
-router.get('/showPets/:topic', (req, res) => {
+router.get('/showPets/:topic', checkAuthentication, (req, res) => {
 	let a = 0;
 	const re = req.params.topic;
 	console.log(re);
@@ -223,7 +223,7 @@ router.get('/showPets/:topic', (req, res) => {
 	});
 });
 
-router.post('/showPets/:topic', (req, res) => {
+router.post('/showPets/:topic', checkAuthentication, (req, res) => {
 	email = req.body.email;
 	name = req.body.name;
 	user_name = req.user.name;
@@ -255,7 +255,7 @@ router.post('/showPets/:topic', (req, res) => {
 	c = 0;
 	res.redirect('/showPets');
 });
-router.post('/delete', (req, res) => {
+router.post('/delete', checkAuthentication, (req, res) => {
 	u = req.body.id;
 
 	Pets.findOneAndRemove({ _id: u }, (err) => {
@@ -267,8 +267,21 @@ router.post('/delete', (req, res) => {
 	});
 });
 
+// router.use((req, res) => {
+// 	res.sendFile('../views/login.ejs', { root: __dirname });
+// });
+
 function escapeRegex(text) {
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+
+function checkAuthentication(req, res, next) {
+	if (req.isAuthenticated()) {
+		//req.isAuthenticated() will return true if user is logged in
+		next();
+	} else {
+		res.redirect('/login');
+	}
 }
 
 // export the routes
