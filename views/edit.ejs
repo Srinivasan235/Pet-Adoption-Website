@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+
+    <!-- css file -->
+    <link rel="stylesheet" href="css/register.css">
+
+    <!-- bootstrap cdn -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="https://img.icons8.com/fluent/48/000000/pets.png" type="image" />
+
+
+</head>
+
+<body>
+    <div class="container-fluid cont-login">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-5 left-side d-none d-md-block">
+                <div class="container">
+                    <div class="row login-left">
+                        <p class="brand-name">PetAdoption</p>
+                        <p class="brand-desc">Adopt a pet before they have to go to the shelter.</p>
+                        <img class="img-fluid" src="images/register.svg">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-7 right-side">
+                <div class="login-form">
+                    <br>
+                    <h2 class="sign">Edit Your Account </h2>
+                    <form action="/edit" method="POST" >
+                        
+                        <div class="form-group">
+                            <label class="name">Name</label>
+                            <input type="text" class="form-control" name="name"
+                                value="<%= user.name %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="phone" placeholder="Enter phone"
+                                value="<%= user.phone %>">
+                        </div>
+                        <div class="form-group">
+                            
+                            <input type="hidden" class="form-control" name='email'
+                                value="<%= user.email %>">
+                        </div>
+                        
+                       
+                       
+
+                        <button type="submit" class="btn button">Edit account</button>
+                    </form>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

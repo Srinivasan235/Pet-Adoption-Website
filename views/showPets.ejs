@@ -1,3 +1,4 @@
+
 <%-include("partials/header")%>
 
 <section id="title" class="colored-section  p-4 justify-content-center">
@@ -110,5 +111,12 @@
         <button type="submit" class="btn btn-outline-dark" name="load" value="more" id="load">Load more</button>
     </form>
     <% } %>
+    <%if(e==1){%>
+        <script>
+            alert("Congratulations");
+            
+        </script>
+        <%= e=0 %>
+    <%}%>
 
     <%-include("partials/footer")%>

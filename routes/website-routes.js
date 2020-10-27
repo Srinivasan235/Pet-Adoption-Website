@@ -7,7 +7,10 @@ const cloudinary = require('cloudinary').v2;
 const upload = require('../config/multer');
 const quotes = require('quotesy');
 const nodemailer = require('nodemailer');
+// var popup = require('popups');
 
+
+var d=0
 var c = 1;
 let transporter = nodemailer.createTransport({
 	service : 'gmail',
@@ -19,6 +22,7 @@ let transporter = nodemailer.createTransport({
 
 require('../config/cloudinary');
 router.get('', (req, res) => {
+	d=0
 	c = 1;
 	Pets.find({}, (err, pets) => {
 		if (err) {
@@ -36,6 +40,7 @@ router.get('', (req, res) => {
 
 // login route
 router.get('/login', (req, res) => {
+	d=0
 	res.render('login');
 });
 
@@ -107,15 +112,18 @@ router.post('/login', (req, res, next) => {
 
 // Logout
 router.get('/logout', (req, res) => {
+	d=0
 	req.logout();
 	res.redirect('/');
 });
 // register route
 router.get('/register', (req, res) => {
+	d=0
 	res.render('register');
 });
 
 router.get('/showPets', (req, res) => {
+
 	const img = req.user.profile_image;
 
 	if (req.query.search) {
@@ -146,7 +154,8 @@ router.get('/showPets', (req, res) => {
 					pets  : pets,
 					user  : req.user,
 					value : c,
-					img   : img
+					img   : img,
+					e:d
 				});
 			}
 		});
@@ -154,6 +163,7 @@ router.get('/showPets', (req, res) => {
 });
 
 router.post('/showPets', (req, res) => {
+	d=0
 	const a = req.body.load;
 
 	console.log(a);
@@ -162,6 +172,7 @@ router.post('/showPets', (req, res) => {
 });
 
 router.get('/add_pets', (req, res) => {
+	d=0
 	res.render('add_pets');
 });
 router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
@@ -193,6 +204,8 @@ router.post('/add_pets', upload.single('pet_image'), async (req, res) => {
 });
 
 router.get('/user', (req, res) => {
+	d=0
+	
 	user = req.user;
 	Pets.find({ owner_email: user.email }, (err, pets) => {
 		if (err) {
@@ -224,6 +237,7 @@ router.get('/showPets/:topic', (req, res) => {
 });
 
 router.post('/showPets/:topic', (req, res) => {
+	d=1
 	email = req.body.email;
 	name = req.body.name;
 	user_name = req.user.name;
@@ -271,5 +285,34 @@ function escapeRegex(text) {
 	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
 
+router.get('/edit',(req,res)=>{
+	user=req.user;
+  res.render("edit",{user:user});
+});
+
+router.post("/edit",(req,res)=>{
+	namer = req.body.name;
+	phone = req.body.phone;
+
+
+const query = { email: req.body.email };
+User.findOneAndUpdate(query, { name: namer,phone :phone}, (err)=>{
+
+	if(err){
+		console.log(err);
+	}
+	else{
+
+		res.redirect("/user");
+	}
+});
+
+
+});
+
+	
+
+
 // export the routes
+
 module.exports = router;
