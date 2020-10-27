@@ -1,10 +1,3 @@
-
-		
-		
-		
-		
-		
-		
 <%-include("partials/header")%>
 
 <section id="title" class="colored-section  p-4 justify-content-center space">
@@ -18,7 +11,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                   
+
                     <li class="nav-item active">
                         <a class="nav-link" href="/showPets">Back To Pets</a>
                     </li>
@@ -28,39 +21,39 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </nav>
 
 
         <!-- Title -->
-        
+
 
     </div>
     <h2><%= quote.text %></h2>
     <h3>- <%= quote.author %></h3>
-    
+
 
 
 
 </section>
 
-    <div class="userphot">
-		<img src="<%=users.profile_image %>" class="user-profile" width="170px" height="250px" alt="User Photo Here">
-	</div>
-	<hr>
-	<div id="Name"> 
-		Name: <%=users.name %>
-	</div>
-	<hr>
-	<div id="Email">
-		Email: <%=users.email %>
-    </div>
-    <hr>
-	<div id="Email">
-		Phone_No:<%= users.phone%> 
-	</div>
+<div class="userphot">
+    <img src="<%=users.profile_image %>" class="user-profile" width="170px" height="250px" alt="User Photo Here">
+</div>
+<hr>
+<div id="Name">
+    Name: <%=users.name %>
+</div>
+<hr>
+<div id="Email">
+    Email: <%=users.email %>
+</div>
+<hr>
+<div id="Email">
+    Phone_No:<%= users.phone%>
+</div>
 </div>
 
 
@@ -69,37 +62,33 @@
     <h2 class="heading1">Your Pets</h2>
     <p></p>
     <div class="row">
-      
-          <% pets.forEach(function(pet){ %>
-            <div class="pricing-component col-lg-4 col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><%=pet.petname %></h3>
-                    </div>
-                    <div class="card-body">
-                        <img class="dog-image" src="<%=pet.pet_image %>" alt="dog-profile">
-    
-                        <p>breed: <%= pet.breed %></p>
-                        <p>Age: <%= pet.petage %></p>
-    
-                        <form action="/showPets/<%= pet._id %>" >
-                            <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
-                          </form>
-                          <br>
-                          <form action="/delete" method="POST">
-                            <input type="hidden" name="id" value="<%=pet._id%>">
-                            <button type="submit" class="btn btn-dark btn-lg button2">Adopted</button>
-                        </form>
-                    </div>
+
+        <% pets.forEach(function(pet){ %>
+        <div class="pricing-component col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3><%=pet.petname %></h3>
+                </div>
+                <div class="card-body">
+                    <img class="dog-image" src="<%=pet.pet_image %>" alt="dog-profile">
+
+                    <p>breed: <%= pet.breed %></p>
+                    <p>Age: <%= pet.petage %></p>
+
+                    <form action="/showPets/<%= pet._id %>">
+                        <button type="submit" class="btn btn-dark btn-lg button2">Profile</button>
+                    </form>
+                    <br>
+                    <form action="/delete" method="POST">
+                        <input type="hidden" name="id" value="<%=pet._id%>">
+                        <button type="submit" class="btn btn-dark btn-lg button2">Adopted</button>
+                    </form>
                 </div>
             </div>
-            <% }); %> 
-        </section>
+        </div>
+        <% }); %>
+</section>
 
 
 
 <%-include("partials/footer")%>
-
-
-
-	
