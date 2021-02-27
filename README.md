@@ -3,7 +3,7 @@ Pet Adoption Website is an online pet adoption community where people who want t
 Project Link - https://enigmatic-woodland-36330.herokuapp.com/
 ## Requirements
 
-For development, you will only need Node.js and a node global package, Yarn, installed in your environement.
+For development, you will only need Node.js and a node global package installed in your environement.
 
 ## Install
 
