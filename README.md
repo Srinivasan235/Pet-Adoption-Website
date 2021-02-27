@@ -1,8 +1,20 @@
-# Pet-Adoption-Website:
-Pet Adoption Website is an online pet adoption community where people who want to adopt a pet connect with people who need to rehome a pet.
+# PetAdoption-Website:
+Pet Adoption Website is an online pet adoption community where people who want to adopt a pet connect with people who need to rehome a pet.<br>
+Project Link - https://enigmatic-woodland-36330.herokuapp.com/
+## Requirements
 
-# Installation:
-* https://github.com/Srinivasan235/Pet-Adoption-Website.git
-* 
+For development, you will only need Node.js and a node global package, Yarn, installed in your environement.
 
+## Install
+
+    $ git clone https://github.com/Srinivasan235/Pet-Adoption-Website.git
+    $ cd Pet-Adoption-Website
+    $ npm install
+    $ npm start
+
+
+
+
+    
+   
 
