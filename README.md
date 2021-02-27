@@ -5,7 +5,7 @@ Project Link - https://enigmatic-woodland-36330.herokuapp.com/
 
 For development, you will only need Node.js and a node global package installed in your environement.
 
-## Install
+## Getting Started
 
     $ git clone https://github.com/Srinivasan235/Pet-Adoption-Website.git
     $ cd Pet-Adoption-Website
