@@ -1,4 +1,4 @@
-# PetAdoption-Website:
+# PetAdoption-Website
 Pet Adoption Website is an online pet adoption community where people who want to adopt a pet connect with people who need to rehome a pet.<br>
 Project Link - https://enigmatic-woodland-36330.herokuapp.com/
 ## Requirements
